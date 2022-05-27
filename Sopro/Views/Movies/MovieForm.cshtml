@@ -1,0 +1,35 @@
+﻿@model Sopro.ViewModels.MovieFormViewModel
+
+@{
+    ViewBag.Title =Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("AddMovie", "Movies"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m=>m.Movie.Title)
+                    @Html.TextBoxFor(m=>m.Movie.Title, new { @class="form-control"})
+                </div>
+
+                <div class="form-group">
+                    <label>Release Date</label>
+                    @Html.TextBoxFor(m=>m.Movie.ReleaseDate, 
+                   ""
+                   ,new { @class="form-control"})
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Movie.Genres)
+
+                    @Html.DropDownListFor(m=>m.Movie.Genres,
+                        new SelectList(Model.Genres, "Id", "Name"), "Select values",
+                        new { @multiple = "multiple", @class ="form-control"}
+                        )
+                 </div>
+
+                @Html.HiddenFor(m=>m.Movie.Id)
+    <button type="submit" class="btn btn-primary">Add Movie</button>
+            }
